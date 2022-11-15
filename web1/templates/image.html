@@ -14,56 +14,65 @@
   </form>
 </nav>
 <div class="container">
-<ul class="main">
-
-</ul>
-<div class="row">
-    <div class="col-sm-4 col1">
-
+  <div class="row">
+    <div class="col-sm">
+      One of three columns
     </div>
-     <div class="col-sm-4 ol2">
-
+    <div class="col-sm">
+      One of three columns
     </div>
-     <div class="col-sm-4 col3">
-
+    <div class="col-sm">
+      One of three columns
     </div>
+  </div>
 
-</div>
+    <div class="row">
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+  </div>
+
+
+    <div class="row">
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+  </div>
+
+
+    <div class="row">
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+  </div>
 </div>
 </body>
 <script>
      $(document).on('click', '#search', function(e) {
         e.preventDefault()
-        var quotations = [];
+        console.log('hello')
         var input = $('#inputsearch').val()
         $.ajax({
             type: 'POST',
-            url: '/search',
-            headers: {
-                "X-CSRFToken": getCookie("csrftoken")
-            },
-            data: {
-                input: input,
-            },
-            dataType: 'JSON',
-            success: function(data) {
-                for (let i = 0; i < data.length; i++) {
-                 // quotations.push(data[i]);
-                  var html = '<li><span class="weburl" data-id="'+data[i]+'">'+data[i]+'</span></li>'
-                  $('.main').append(html)
-                }
-                //console.log(quotations)
-            },
-        });
-    });
-
-    $(document).on('click', '.weburl', function(e) {
-        e.preventDefault()
-        var input = $(this).data('id')
-        console.log('input',input)
-        $.ajax({
-            type: 'POST',
-            url: '/web/scrape',
+            url: '/image/search',
             headers: {
                 "X-CSRFToken": getCookie("csrftoken")
             },
@@ -73,12 +82,6 @@
             dataType: 'JSON',
             success: function(data) {
                console.log(data)
-               $('.col1').append(data)
-               $('.votecell').remove()
-               $('.mt24').remove();
-               $('.mb0').remove();
-               $('#post-form').remove();
-               $('.bottom-notice').remove()
             },
         });
     });
