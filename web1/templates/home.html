@@ -12,11 +12,19 @@
     <input class="form-control mr-sm-2" type="search" id="inputsearch" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" id="search">Search</button>
   </form>
+
 </nav>
+
+
 <div class="container">
+     <input class="form-control mr-sm-2" type="search" id="inputsearchimg" placeholder="enter url here" aria-label="Search">
+     <button class="btn btn-outline-success my-2 my-sm-0" id="searchimg">Search</button>
 <ul class="main">
 
 </ul>
+    <ul class="img">
+
+    </ul>
 <div class="row">
     <div class="col-sm-4 col1">
 
@@ -79,6 +87,30 @@
                $('.mb0').remove();
                $('#post-form').remove();
                $('.bottom-notice').remove()
+            },
+        });
+    });
+
+     $(document).on('click', '#searchimg', function(e) {
+        e.preventDefault()
+        var input = $('#inputsearchimg').val()
+        $.ajax({
+            type: 'POST',
+            url: '/find/image/url',
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            data: {
+                input: input,
+            },
+            dataType: 'JSON',
+            success: function(data) {
+            for (let i = 0; i < data.length; i++) {
+                 // quotations.push(data[i]);
+                  var html = '<li><img src="'+data[i]['src']+'"></li>'
+                  $('.img').append(html)
+                }
+                 console.log(data)
             },
         });
     });

@@ -5,7 +5,6 @@ from pytesseract import pytesseract
 from PIL import Image
 import requests
 from bs4 import BeautifulSoup
-from django.template import loader
 
 def html(request):
     return render(request, "home.html")
@@ -49,6 +48,30 @@ def webscrape(request):
 
     #soup.body
     return HttpResponse(json.dumps(s.prettify()), content_type="application/json",status=200)
+
+def findimg(request):
+    url = request.POST['input']
+
+    r = requests.get(url)
+
+    # Parsing the HTML
+    soup = BeautifulSoup(r.content, 'html.parser')
+
+    images_list = []
+    my_list = []
+
+    images = soup.select('img')
+    for image in images:
+        src = image.get('src')
+        alt = image.get('alt')
+        images_list.append({"src": src, "alt": alt})
+
+    for image in images_list:
+        my_list.append(image)
+
+    return HttpResponse(json.dumps(my_list), content_type="application/json",status=200)
+
+
 
 
 
